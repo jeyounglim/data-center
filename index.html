@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LG CNS — Data Center</title>
+    <meta
+      name="description"
+      content="LG CNS 데이터센터 3D 모델을 둘러보는 Three.js / WebGL 페이지"
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='36' fill='%23f4efe6'/></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css"
+    />
+    <link rel="stylesheet" href="./src/style.css" />
+  </head>
+  <body>
+    <canvas id="webgl"></canvas>
+
+    <div class="loader" id="loader" role="status" aria-live="polite">
+      <p class="loader-label">모델을 불러오는 중입니다</p>
+      <div class="loader-track" aria-hidden="true">
+        <i id="progress"></i>
+      </div>
+    </div>
+
+    <div class="overlay">
+      <header class="nav">
+        <a class="logo" href="#top">LG CNS</a>
+        <nav>
+          <a href="#top" aria-current="page">Campus</a>
+          <a href="#top">Model</a>
+        </nav>
+      </header>
+
+      <main class="hero" id="top">
+        <p class="eyebrow">
+          <span>Three.js</span>
+          <span class="dot"></span>
+          <span>WebGL</span>
+          <span class="dot"></span>
+          <span>Data Center</span>
+        </p>
+
+        <h1 class="title">
+          <span>The campus,</span>
+          <span class="italic">in motion.</span>
+        </h1>
+
+        <p class="lede" data-parallax>
+          드래그하여 캠퍼스를 둘러보고,
+          <br />
+          아이콘을 눌러 각 공간을 확인해 보세요.
+        </p>
+      </main>
+
+      <footer class="foot">
+        <p>드래그하여 360° 둘러보기</p>
+        <p class="coords" id="coords">0.00 / 0.00</p>
+      </footer>
+    </div>
+
+    <div class="modal" id="modal" hidden>
+      <div class="modal-backdrop" id="modal-backdrop"></div>
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button class="modal-close" id="modal-close" type="button" aria-label="닫기">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M7 7l10 10M17 7L7 17" />
+          </svg>
+        </button>
+        <div class="modal-icon" id="modal-icon" aria-hidden="true"></div>
+        <p class="modal-kicker" id="modal-kicker"></p>
+        <h2 class="modal-title" id="modal-title"></h2>
+        <p class="modal-body" id="modal-body"></p>
+        <div class="modal-nav">
+          <button id="modal-prev" type="button">
+            <i aria-hidden="true">←</i>
+            <span id="modal-prev-label"></span>
+          </button>
+          <button id="modal-next" type="button">
+            <span id="modal-next-label"></span>
+            <i aria-hidden="true">→</i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
