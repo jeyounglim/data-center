@@ -46,21 +46,35 @@ export class Site {
     this.ready = true;
   }
 
-  loadModel() {
+  async loadModel() {
     const loader = new GLTFLoader();
-    const base = import.meta.env.BASE_URL || "./";
-    const url = `${base}models/${MODEL_NAME}`;
+    const base = import.meta.env?.BASE_URL || "./";
+    const urls = [
+      `${base}models/${MODEL_NAME}`,
+      `${base}public/models/${MODEL_NAME}`,
+      `./models/${MODEL_NAME}`,
+      `./public/models/${MODEL_NAME}`,
+    ];
 
-    return new Promise((resolve, reject) => {
-      loader.load(
-        url,
-        resolve,
-        (event) => {
-          if (event.total > 0) this.onProgress?.(event.loaded / event.total);
-        },
-        reject,
-      );
-    });
+    let lastError;
+    for (const url of urls) {
+      try {
+        return await new Promise((resolve, reject) => {
+          loader.load(
+            url,
+            resolve,
+            (event) => {
+              if (event.total > 0) this.onProgress?.(event.loaded / event.total);
+            },
+            reject,
+          );
+        });
+      } catch (error) {
+        lastError = error;
+      }
+    }
+
+    throw lastError ?? new Error(`${MODEL_NAME} 를 찾지 못했습니다.`);
   }
 
   dispose() {
